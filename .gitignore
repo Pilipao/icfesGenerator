@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+.venv/
+.env
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# Docker
+.docker/
+
+# Project Specific - Data & Config
+# Exclude sensitive environment variables
+.env
+.env.*
+!.env.example
+
+# Exclude local data files (mounted volumes)
+backend/data/
+*.csv
+*.xlsx
+postgres_data_v2/
+
+# Temporary test scripts
+test_gen.py
+test_groq_direct.py
+
+# Logs
+*.log

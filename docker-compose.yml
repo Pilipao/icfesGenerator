@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: ankane/pgvector:v0.4.1 # Using a pre-built image with pgvector
+    container_name: icfes_db_v2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: icfes_rag_db
+    ports:
+      - "5433:5432" # Mapped to 5433 to avoid conflict with potential existing local postgres
+    volumes:
+      - postgres_data_v2:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - icfes_network
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: icfes_api_v2
+    volumes:
+      - ./backend:/app
+      - ../preguntas_sociales_final_enriquecido.csv:/data/input.csv
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/icfes_rag_db
+      # OPENAI_API_KEY: ${OPENAI_API_KEY}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+    depends_on:
+      - db
+    networks:
+      - icfes_network
+
+networks:
+  icfes_network:
+    driver: bridge
+
+volumes:
+  postgres_data_v2:
